@@ -20,10 +20,10 @@ class SplashActivity : AppCompatActivity() {
 
         )
 
-        /*val typeFace: Typeface = Typeface.createFromAsset(assets, "LilitaOne-Regular.ttf")
+        val typeFace: Typeface = Typeface.createFromAsset(assets, "SpectralSC-ExtraBoldItalic.ttf")
         tvAppName?.typeface = typeFace
 
 
-         */
+
     }
 }
