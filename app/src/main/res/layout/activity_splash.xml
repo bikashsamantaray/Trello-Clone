@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".SplashActivity"
     android:paddingTop="150dp"
-    android:paddingStart="70dp"
+    android:paddingStart="0dp"
     android:background="@drawable/ic_splash_background"
     tools:ignore="RtlSymmetry">
 
