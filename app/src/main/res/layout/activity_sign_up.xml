@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:text="@string/sign_up"
-            android:textColor="@color/primary_text_color"
+            android:textColor="@color/secondary_text_color"
             android:textSize="@dimen/toolbar_title_text_size"
             android:textStyle="bold" />
 
