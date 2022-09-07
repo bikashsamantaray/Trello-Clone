@@ -5,8 +5,9 @@
       <map>
         <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/drawable/shape_button_rounded.xml" value="0.188" />
         <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/drawable/white_border_shape_button.xml" value="0.188" />
-        <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/layout/activity_intro.xml" value="0.10400000000000001" />
+        <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/layout/activity_intro.xml" value="0.136" />
         <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/layout/activity_sign_up.xml" value="0.2" />
         <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/layout/activity_splash.xml" value="0.2" />
       </map>
     </option>
