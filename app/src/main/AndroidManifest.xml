@@ -14,6 +14,11 @@
         android:theme="@style/Theme.TrelloClone"
         tools:targetApi="31">
         <activity
+            android:name=".SignInActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
             android:name=".SignUpActivity"
             android:exported="false"
             android:screenOrientation="portrait"
