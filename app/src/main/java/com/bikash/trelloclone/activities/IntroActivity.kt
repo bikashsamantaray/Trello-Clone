@@ -1,12 +1,13 @@
-package com.bikash.trelloclone
+package com.bikash.trelloclone.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.TextView
+import com.bikash.trelloclone.R
 
-class IntroActivity : AppCompatActivity() {
+class IntroActivity : BaseActivity() {
     private var btnSignUp: TextView? = null
     private var btnSignIn: TextView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,10 +23,10 @@ class IntroActivity : AppCompatActivity() {
 
 
         btnSignUp?.setOnClickListener{
-            startActivity(Intent(this@IntroActivity,SignUpActivity::class.java))
+            startActivity(Intent(this@IntroActivity, SignUpActivity::class.java))
         }
         btnSignIn?.setOnClickListener{
-            startActivity(Intent(this@IntroActivity,SignInActivity::class.java))
+            startActivity(Intent(this@IntroActivity, SignInActivity::class.java))
         }
 
 

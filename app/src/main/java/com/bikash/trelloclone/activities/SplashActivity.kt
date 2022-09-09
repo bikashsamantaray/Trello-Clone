@@ -1,4 +1,4 @@
-package com.bikash.trelloclone
+package com.bikash.trelloclone.activities
 
 import android.content.Intent
 import android.graphics.Typeface
@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
 import android.widget.TextView
+import com.bikash.trelloclone.R
 
 class SplashActivity : AppCompatActivity() {
     private var tvAppName: TextView? = null
@@ -26,7 +27,7 @@ class SplashActivity : AppCompatActivity() {
         tvAppName?.typeface = typeFace
 
         Handler().postDelayed({
-            startActivity(Intent(this,IntroActivity::class.java))
+            startActivity(Intent(this, IntroActivity::class.java))
             finish()
         },2500)
 
