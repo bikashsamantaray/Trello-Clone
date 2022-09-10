@@ -8,6 +8,8 @@ import android.view.WindowManager
 import android.widget.Toast
 import com.bikash.trelloclone.R
 import com.bikash.trelloclone.databinding.ActivitySignUpBinding
+import com.bikash.trelloclone.firebase.FireStoreClass
+import com.bikash.trelloclone.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
@@ -54,19 +56,25 @@ class SignUpActivity : BaseActivity() {
         if (validateForm(name, email, password)){
             showProgressDialog(resources.getString(R.string.please_wait))
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,password).addOnCompleteListener { task ->
-                hideProgressDialog()
                 if (task.isSuccessful) {
                     val firebaseUser: FirebaseUser = task.result!!.user!!
                     val registeredEmail = firebaseUser.email
-                    Toast.makeText(
+                    val user = User(firebaseUser.uid,name,registeredEmail!!)
+                    FireStoreClass().registerUser(this,user)
+
+                    /*Toast.makeText(
                         this,
                         "$name you have successfully registered the email address $registeredEmail",
                         Toast.LENGTH_LONG
                     ).show()
                     FirebaseAuth.getInstance().signOut()
                     finish()
+
+                     */
                 } else {
+                    hideProgressDialog()
                     Toast.makeText(this, task.exception!!.message, Toast.LENGTH_LONG).show()
+
                 }
             }
         }
@@ -91,5 +99,17 @@ class SignUpActivity : BaseActivity() {
                 true
             }
         }
+    }
+
+    fun userRegisteredSuccess(){
+        Toast.makeText(
+            this,
+            " you have successfully registered",
+            Toast.LENGTH_LONG
+        ).show()
+        hideProgressDialog()
+        FirebaseAuth.getInstance().signOut()
+        finish()
+
     }
 }
