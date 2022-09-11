@@ -9,6 +9,8 @@ import android.view.WindowManager
 import android.widget.Toast
 import com.bikash.trelloclone.R
 import com.bikash.trelloclone.databinding.ActivitySignInBinding
+import com.bikash.trelloclone.firebase.FireStoreClass
+import com.bikash.trelloclone.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -55,8 +57,13 @@ class SignInActivity : BaseActivity() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("Sign In", "signInWithEmail:success")
-                        val user = auth.currentUser
+                        /*val user = auth.currentUser
                         startActivity(Intent(this,MainActivity::class.java))
+
+
+                         */
+                        FireStoreClass().signInUser(this)
+
 
                     } else {
                         // If sign in fails, display a message to the user.
@@ -83,5 +90,13 @@ class SignInActivity : BaseActivity() {
                 true
             }
         }
+    }
+
+    fun signInSuccess(loggedInUser: User?) {
+        hideProgressDialog()
+        startActivity(Intent(this,MainActivity::class.java))
+        finish()
+
+
     }
 }
