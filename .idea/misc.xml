@@ -7,6 +7,8 @@
         <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.1435" />
         <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/drawable/ic_baseline_arrow_back_ios_new_24.xml" value="0.1435" />
         <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1435" />
+        <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/drawable/ic_nav_user.xml" value="0.1675" />
+        <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/drawable/nav_header_main_background.xml" value="0.1675" />
         <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/drawable/shape_button_rounded.xml" value="0.188" />
         <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/drawable/white_border_shape_button.xml" value="0.188" />
         <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/drawable/white_border_shape_button_rounded.xml" value="0.1435" />
@@ -16,7 +18,11 @@
         <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/layout/activity_sign_in.xml" value="0.2" />
         <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/layout/activity_sign_up.xml" value="0.2" />
         <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/layout/activity_splash.xml" value="0.2" />
+        <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/layout/app_bar_main.xml" value="0.23125" />
         <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/layout/dialog_progress.xml" value="0.2" />
+        <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/layout/main_content.xml" value="0.23125" />
+        <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/layout/nav_header_main.xml" value="0.264" />
+        <entry key="..\:/myAndroidApps/TrelloClone/app/src/main/res/menu/activity_main_drawer.xml" value="0.23229166666666667" />
       </map>
     </option>
   </component>

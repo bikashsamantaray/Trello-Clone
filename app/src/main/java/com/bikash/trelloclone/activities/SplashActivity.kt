@@ -8,6 +8,7 @@ import android.os.Handler
 import android.view.WindowManager
 import android.widget.TextView
 import com.bikash.trelloclone.R
+import com.bikash.trelloclone.firebase.FireStoreClass
 
 class SplashActivity : AppCompatActivity() {
     private var tvAppName: TextView? = null
@@ -27,7 +28,15 @@ class SplashActivity : AppCompatActivity() {
         tvAppName?.typeface = typeFace
 
         Handler().postDelayed({
-            startActivity(Intent(this, IntroActivity::class.java))
+
+            val currentUserId = FireStoreClass().getCurrentUserId()
+            if (currentUserId.isNotEmpty()){
+                startActivity(Intent(this,MainActivity::class.java))
+            }else{
+                startActivity(Intent(this, IntroActivity::class.java))
+            }
+
+
             finish()
         },2500)
 
