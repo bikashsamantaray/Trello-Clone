@@ -47,7 +47,7 @@ open class BaseActivity : AppCompatActivity() {
     fun doubleBackToExit(){
         if (doubleBackToExitPressedOnce){
             super.onBackPressed()
-            return
+            finish()
         }
         this.doubleBackToExitPressedOnce = true
         Toast.makeText(this,"Please click again to exit",Toast.LENGTH_SHORT).show()

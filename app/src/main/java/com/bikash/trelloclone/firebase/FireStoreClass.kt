@@ -1,6 +1,8 @@
 package com.bikash.trelloclone.firebase
 
+import android.app.Activity
 import android.util.Log
+import com.bikash.trelloclone.activities.MainActivity
 import com.bikash.trelloclone.activities.SignInActivity
 import com.bikash.trelloclone.activities.SignUpActivity
 import com.bikash.trelloclone.utils.Constants
@@ -23,13 +25,31 @@ class FireStoreClass {
 
     }
 
-    fun signInUser(activity: SignInActivity){
+    fun signInUser(activity: Activity){
 
         mFireStore.collection(Constants.USERS).document(getCurrentUserId()).get().addOnSuccessListener {
             document ->
             val loggedInUser = document.toObject(com.bikash.trelloclone.models.User::class.java)
-            activity.signInSuccess(loggedInUser)
+
+            when(activity){
+                is SignInActivity -> {
+                    activity.signInSuccess(loggedInUser)
+                }
+                is MainActivity -> {
+                    activity.updateNavigationUserDetails(loggedInUser)
+                }
+            }
+
+
         }.addOnFailureListener{
+            when(activity){
+                is SignInActivity -> {
+                    activity.hideProgressDialog()
+                }
+                is MainActivity -> {
+                    activity.hideProgressDialog()
+                }
+            }
             Log.e(activity.javaClass.simpleName,"Error writing document")
         }
 
