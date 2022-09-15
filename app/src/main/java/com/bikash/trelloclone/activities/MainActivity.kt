@@ -1,14 +1,9 @@
 package com.bikash.trelloclone.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Gravity
 import android.view.MenuItem
 import android.widget.TextView
-import android.widget.Toast
-import android.widget.Toolbar
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.GravityCompat
 import com.bikash.trelloclone.R
 import com.bikash.trelloclone.databinding.ActivityMainBinding
@@ -31,7 +26,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         binding?.navView?.setNavigationItemSelectedListener(this)
 
-        FireStoreClass().signInUser(this)
+        FireStoreClass().loadUserData(this)
 
 
 

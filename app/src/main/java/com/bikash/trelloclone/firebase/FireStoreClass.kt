@@ -3,13 +3,13 @@ package com.bikash.trelloclone.firebase
 import android.app.Activity
 import android.util.Log
 import com.bikash.trelloclone.activities.MainActivity
+import com.bikash.trelloclone.activities.MyProfileActivity
 import com.bikash.trelloclone.activities.SignInActivity
 import com.bikash.trelloclone.activities.SignUpActivity
 import com.bikash.trelloclone.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.google.firebase.firestore.auth.User
 
 class FireStoreClass {
 
@@ -25,7 +25,7 @@ class FireStoreClass {
 
     }
 
-    fun signInUser(activity: Activity){
+    fun loadUserData(activity: Activity){
 
         mFireStore.collection(Constants.USERS).document(getCurrentUserId()).get().addOnSuccessListener {
             document ->
@@ -37,6 +37,10 @@ class FireStoreClass {
                 }
                 is MainActivity -> {
                     activity.updateNavigationUserDetails(loggedInUser)
+                }
+
+                is MyProfileActivity -> {
+                    activity.setUserData(loggedInUser)
                 }
             }
 
