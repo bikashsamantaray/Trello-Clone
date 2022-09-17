@@ -2,6 +2,7 @@ package com.bikash.trelloclone.firebase
 
 import android.app.Activity
 import android.util.Log
+import android.widget.Toast
 import com.bikash.trelloclone.activities.MainActivity
 import com.bikash.trelloclone.activities.MyProfileActivity
 import com.bikash.trelloclone.activities.SignInActivity
@@ -24,6 +25,8 @@ class FireStoreClass {
         }
 
     }
+
+
 
     fun loadUserData(activity: Activity){
 
@@ -55,6 +58,22 @@ class FireStoreClass {
                 }
             }
             Log.e(activity.javaClass.simpleName,"Error writing document")
+        }
+
+    }
+
+    fun updateUserProfileDataFirestore(activity: MyProfileActivity, userHashMap: HashMap<String, Any>){
+
+        mFireStore.collection(Constants.USERS).document(getCurrentUserId()).update(userHashMap).addOnSuccessListener {
+            Log.i(activity.javaClass.simpleName,"profile data updated successfully!")
+            Toast.makeText(activity,"Profile updated successfully",Toast.LENGTH_SHORT).show()
+            activity.profileUpdateSuccess()
+        }.addOnFailureListener{
+            e ->
+            activity.hideProgressDialog()
+            Log.e(activity.javaClass.simpleName,"Error while creating a board",e)
+            Toast.makeText(activity,"Profile not updated successfully",Toast.LENGTH_SHORT).show()
+
         }
 
     }
