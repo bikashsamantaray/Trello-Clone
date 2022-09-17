@@ -8,9 +8,12 @@ import android.os.Build.VERSION_CODES.M
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
+import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.MimeTypeFilter
 import com.bikash.trelloclone.R
 import com.bikash.trelloclone.activities.MyProfileActivity.Companion.READ_STORAGE_PERMISSION_CODE
 import com.bikash.trelloclone.databinding.ActivityMyProfileBinding
@@ -18,9 +21,14 @@ import com.bikash.trelloclone.firebase.FireStoreClass
 import com.bikash.trelloclone.models.User
 import com.bumptech.glide.Glide
 import com.google.android.gms.common.wrappers.Wrappers.packageManager
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.squareup.okhttp.internal.DiskLruCache
+import com.squareup.okhttp.internal.DiskLruCache.Snapshot
 import de.hdodenhof.circleimageview.CircleImageView
 import java.util.jar.Manifest
 
+@Suppress("DEPRECATION")
 class MyProfileActivity : BaseActivity() {
 
     companion object{
@@ -30,6 +38,7 @@ class MyProfileActivity : BaseActivity() {
     }
 
     private var mSelectedImageUri: Uri? = null
+    private var mProfileImageUrl: String = ""
 
     private var binding: ActivityMyProfileBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +66,12 @@ class MyProfileActivity : BaseActivity() {
 
         }
 
+        binding?.btnUpdate?.setOnClickListener{
+            if (mSelectedImageUri != null){
+                uploadUserImage()
+            }
+        }
+
     }
 
     override fun onRequestPermissionsResult(
@@ -80,6 +95,7 @@ class MyProfileActivity : BaseActivity() {
         startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST_CODE)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE_REQUEST_CODE && data != null){
@@ -127,6 +143,34 @@ class MyProfileActivity : BaseActivity() {
 
         }
 
+    }
+
+    private fun uploadUserImage(){
+        showProgressDialog(resources.getString(R.string.please_wait))
+        if (mSelectedImageUri != null){
+            val sRef : StorageReference = FirebaseStorage.getInstance()
+                .reference.child("User Image" + System.currentTimeMillis()+ "." +getFileExtensions(mSelectedImageUri))
+
+
+            sRef.putFile(mSelectedImageUri!!).addOnSuccessListener { taskSnapshot ->
+                Log.i("Firebase Image Url", taskSnapshot.metadata!!.reference!!.downloadUrl.toString())
+                taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
+                    uri -> Log.i("Downloadable image URL", uri.toString())
+                    mProfileImageUrl = uri.toString()
+                }
+                hideProgressDialog()
+
+            }.addOnFailureListener{
+                exception ->
+                Toast.makeText(this,exception.message,Toast.LENGTH_SHORT).show()
+
+                hideProgressDialog()
+            }
+        }
+    }
+
+    private fun getFileExtensions(uri: Uri?):String?{
+        return MimeTypeMap.getSingleton().getExtensionFromMimeType(contentResolver.getType(uri!!))
     }
 
 
