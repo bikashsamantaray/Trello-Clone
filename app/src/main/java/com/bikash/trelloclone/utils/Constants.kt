@@ -6,6 +6,4 @@ object Constants {
     const val IMAGE: String = "image"
     const val NAME: String = "name"
     const val MOBILE: String = "mobile"
-    const val Hello: String = "hell"
-
 }
