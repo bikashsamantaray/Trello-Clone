@@ -12,6 +12,7 @@ import com.bikash.trelloclone.databinding.ActivityMainBinding
 import com.bikash.trelloclone.firebase.FireStoreClass
 import com.bikash.trelloclone.models.User
 import com.bumptech.glide.Glide
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import de.hdodenhof.circleimageview.CircleImageView
@@ -33,6 +34,13 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         binding?.navView?.setNavigationItemSelectedListener(this)
 
         FireStoreClass().loadUserData(this)
+        val fabCreateBoard = findViewById<FloatingActionButton>(R.id.fab_create_board)
+
+        fabCreateBoard.setOnClickListener{
+            startActivity(Intent(this,CreateBoardActivity::class.java))
+        }
+
+
 
 
 
@@ -67,6 +75,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == MY_PROFILE_REQUEST_CODE){

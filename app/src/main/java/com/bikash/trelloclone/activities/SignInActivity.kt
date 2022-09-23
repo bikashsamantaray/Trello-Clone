@@ -37,7 +37,7 @@ class SignInActivity : BaseActivity() {
     }
     private fun setupActionBar() {
         setSupportActionBar(binding?.toolbarSignInActivity)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_new_24)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding?.toolbarSignInActivity?.setNavigationOnClickListener{
             onBackPressed()

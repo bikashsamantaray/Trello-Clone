@@ -123,7 +123,7 @@ class MyProfileActivity : BaseActivity() {
 
     private fun setupActionBar(){
         setSupportActionBar(binding?.toolbarMyProfile)
-        binding?.toolbarMyProfile?.setNavigationIcon(R.drawable.ic_baseline_arrow_back_ios_24)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_new_24)
         supportActionBar?.title = resources.getString(R.string.my_profile)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
