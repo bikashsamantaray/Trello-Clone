@@ -15,11 +15,14 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.MimeTypeFilter
 import com.bikash.trelloclone.R
-import com.bikash.trelloclone.activities.MyProfileActivity.Companion.READ_STORAGE_PERMISSION_CODE
 import com.bikash.trelloclone.databinding.ActivityMyProfileBinding
 import com.bikash.trelloclone.firebase.FireStoreClass
 import com.bikash.trelloclone.models.User
 import com.bikash.trelloclone.utils.Constants
+import com.bikash.trelloclone.utils.Constants.PICK_IMAGE_REQUEST_CODE
+import com.bikash.trelloclone.utils.Constants.READ_STORAGE_PERMISSION_CODE
+import com.bikash.trelloclone.utils.Constants.getFileExtensions
+import com.bikash.trelloclone.utils.Constants.showImageChooser
 import com.bumptech.glide.Glide
 import com.google.android.gms.common.wrappers.Wrappers.packageManager
 import com.google.firebase.storage.FirebaseStorage
@@ -31,12 +34,6 @@ import java.util.jar.Manifest
 
 @Suppress("DEPRECATION")
 class MyProfileActivity : BaseActivity() {
-
-    companion object{
-        private const val READ_STORAGE_PERMISSION_CODE = 1
-        private const val PICK_IMAGE_REQUEST_CODE = 2
-
-    }
 
     private var mSelectedImageUri: Uri? = null
     private lateinit var mUserDetails: User
@@ -55,7 +52,7 @@ class MyProfileActivity : BaseActivity() {
         binding?.ivUserImage?.setOnClickListener{
 
             if (ContextCompat.checkSelfPermission(this,android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-                showImageChooser()
+                showImageChooser(this)
 
             }else{
                 ActivityCompat.requestPermissions(
@@ -88,7 +85,7 @@ class MyProfileActivity : BaseActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == READ_STORAGE_PERMISSION_CODE){
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                showImageChooser()
+                showImageChooser(this)
             }
 
         }else{
@@ -96,15 +93,11 @@ class MyProfileActivity : BaseActivity() {
         }
     }
 
-    private fun showImageChooser(){
-        val galleryIntent = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST_CODE)
-    }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE_REQUEST_CODE && data != null){
+        if (resultCode == Activity.RESULT_OK && requestCode == Constants.PICK_IMAGE_REQUEST_CODE && data != null){
             mSelectedImageUri = data.data
             val userImage = findViewById<CircleImageView>(R.id.iv_user_image)
             try {
@@ -191,7 +184,7 @@ class MyProfileActivity : BaseActivity() {
         showProgressDialog(resources.getString(R.string.please_wait))
         if (mSelectedImageUri != null){
             val sRef : StorageReference = FirebaseStorage.getInstance()
-                .reference.child("User Image" + System.currentTimeMillis()+ "." +getFileExtensions(mSelectedImageUri))
+                .reference.child("User Image" + System.currentTimeMillis()+ "." +Constants.getFileExtensions(this,mSelectedImageUri))
 
 
             sRef.putFile(mSelectedImageUri!!).addOnSuccessListener { taskSnapshot ->
@@ -211,10 +204,6 @@ class MyProfileActivity : BaseActivity() {
                 hideProgressDialog()
             }
         }
-    }
-
-    private fun getFileExtensions(uri: Uri?):String?{
-        return MimeTypeMap.getSingleton().getExtensionFromMimeType(contentResolver.getType(uri!!))
     }
 
     fun profileUpdateSuccess(){
