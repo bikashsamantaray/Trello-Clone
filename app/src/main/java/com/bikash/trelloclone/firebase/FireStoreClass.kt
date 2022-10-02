@@ -1,12 +1,11 @@
 package com.bikash.trelloclone.firebase
 
 import android.app.Activity
+import android.os.Build.VERSION_CODES.S
 import android.util.Log
 import android.widget.Toast
-import com.bikash.trelloclone.activities.MainActivity
-import com.bikash.trelloclone.activities.MyProfileActivity
-import com.bikash.trelloclone.activities.SignInActivity
-import com.bikash.trelloclone.activities.SignUpActivity
+import com.bikash.trelloclone.activities.*
+import com.bikash.trelloclone.models.Board
 import com.bikash.trelloclone.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -21,9 +20,21 @@ class FireStoreClass {
         mFireStore.collection(Constants.USERS).document(getCurrentUserId()).set(userInfo, SetOptions.merge()).addOnSuccessListener {
             activity.userRegisteredSuccess()
         }.addOnFailureListener{
-        Log.e(activity.javaClass.simpleName,"Error writing document")
+            excepetion ->
+            activity.hideProgressDialog()
+            Log.e(activity.javaClass.simpleName,"Error writing board", excepetion)
         }
 
+    }
+
+    fun createBoard(activity: CreateBoardActivity,board: Board){
+        mFireStore.collection(Constants.BOARDS).document().set(board, SetOptions.merge()).addOnSuccessListener {
+            Log.e(activity.javaClass.simpleName,"Board Created successfully")
+            Toast.makeText(activity,"Board created successfully",Toast.LENGTH_LONG).show()
+            activity.boardCreatedSuccessFully()
+        }.addOnFailureListener{
+            Log.e(activity.javaClass.simpleName,"Error writing document")
+        }
     }
 
 

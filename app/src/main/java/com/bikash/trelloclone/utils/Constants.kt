@@ -11,12 +11,14 @@ import com.bikash.trelloclone.activities.MyProfileActivity
 object Constants {
     const val USERS: String = "users"
 
+    const val BOARDS: String = "boards"
+
     const val IMAGE: String = "image"
     const val NAME: String = "name"
     const val MOBILE: String = "mobile"
     const val READ_STORAGE_PERMISSION_CODE = 1
     const val PICK_IMAGE_REQUEST_CODE = 2
-    const val PurelyImplements = 8
+
 
      fun showImageChooser(activity: Activity){
         val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)

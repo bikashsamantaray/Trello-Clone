@@ -8,6 +8,7 @@ import android.os.Build.VERSION_CODES.M
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.style.UpdateLayout
 import android.util.Log
 import android.webkit.MimeTypeMap
 import android.widget.Toast
@@ -184,7 +185,9 @@ class MyProfileActivity : BaseActivity() {
         showProgressDialog(resources.getString(R.string.please_wait))
         if (mSelectedImageUri != null){
             val sRef : StorageReference = FirebaseStorage.getInstance()
-                .reference.child("User Image" + System.currentTimeMillis()+ "." +Constants.getFileExtensions(this,mSelectedImageUri))
+                .reference.child("User Image" + System.currentTimeMillis()+ "." +Constants.getFileExtensions(this,
+                    this.mSelectedImageUri
+                ))
 
 
             sRef.putFile(mSelectedImageUri!!).addOnSuccessListener { taskSnapshot ->
@@ -212,6 +215,5 @@ class MyProfileActivity : BaseActivity() {
         setResult(Activity.RESULT_OK)
         finish()
     }
-
 
 }

@@ -11,6 +11,7 @@ import com.bikash.trelloclone.R
 import com.bikash.trelloclone.databinding.ActivityMainBinding
 import com.bikash.trelloclone.firebase.FireStoreClass
 import com.bikash.trelloclone.models.User
+import com.bikash.trelloclone.utils.Constants
 import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
@@ -23,6 +24,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     companion object{
         const val MY_PROFILE_REQUEST_CODE: Int = 11
     }
+
+    private lateinit var mUserName: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +40,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val fabCreateBoard = findViewById<FloatingActionButton>(R.id.fab_create_board)
 
         fabCreateBoard.setOnClickListener{
-            startActivity(Intent(this,CreateBoardActivity::class.java))
+            val intent = Intent(this,CreateBoardActivity::class.java)
+            intent.putExtra(Constants.NAME,mUserName)
+            startActivity(intent)
         }
 
 
@@ -109,6 +114,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     fun updateNavigationUserDetails(loggedInUser: User?) {
+
+        mUserName = loggedInUser?.name.toString()
 
         val navUserImage = findViewById<CircleImageView>(R.id.nav_user_image)
         val tvUserName = findViewById<TextView>(R.id.tv_username)

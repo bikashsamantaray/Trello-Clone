@@ -18,15 +18,28 @@ import com.bikash.trelloclone.utils.Constants.showImageChooser
 import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 
-class CreateBoardActivity : AppCompatActivity() {
+class CreateBoardActivity : BaseActivity() {
     private var mSelectedImageUri: Uri? = null
+    private lateinit var mUserName: String
     private var binding: ActivityCreateBoardBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateBoardBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         setupActionBar()
+
+        if (intent.hasExtra(Constants.NAME)){
+            mUserName = intent.getStringExtra(Constants.NAME).toString()
+        }
+
     }
+
+    fun boardCreatedSuccessFully(){
+        hideProgressDialog()
+        finish()
+    }
+
+
 
     private fun setupActionBar(){
         setSupportActionBar(binding?.toolbarCreateBoardActivity)
