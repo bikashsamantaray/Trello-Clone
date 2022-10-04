@@ -21,6 +21,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 class CreateBoardActivity : BaseActivity() {
     private var mSelectedImageUri: Uri? = null
     private lateinit var mUserName: String
+    //private var mBoardImageUrl
     private var binding: ActivityCreateBoardBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +32,24 @@ class CreateBoardActivity : BaseActivity() {
         if (intent.hasExtra(Constants.NAME)){
             mUserName = intent.getStringExtra(Constants.NAME).toString()
         }
+
+        binding?.ivBoardImage?.setOnClickListener{
+            if (ContextCompat.checkSelfPermission(this,android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                showImageChooser(this)
+
+            }else{
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+                    READ_STORAGE_PERMISSION_CODE
+
+                )
+            }
+        }
+
+    }
+
+    private fun createBoard(){
 
     }
 
@@ -49,19 +68,6 @@ class CreateBoardActivity : BaseActivity() {
 
         binding?.toolbarCreateBoardActivity?.setNavigationOnClickListener{
             onBackPressed()
-        }
-        binding?.ivBoardImage?.setOnClickListener{
-            if (ContextCompat.checkSelfPermission(this,android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-                showImageChooser(this)
-
-            }else{
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
-                    READ_STORAGE_PERMISSION_CODE
-
-                )
-            }
         }
 
     }
