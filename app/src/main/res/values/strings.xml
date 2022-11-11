@@ -24,4 +24,8 @@
     <string name="create_board_title">Create Board</string>
     <string name="create">Board</string>
     <string name="board_name">Create Name</string>
+
+    <string name="no_boards_are_available">No Boards are available!!!</string>
+
+
 </resources>
