@@ -1,6 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="?attr/selectableItemBackground"
+    android:orientation="vertical"
+    android:layout_marginBottom="@dimen/item_board_content_marginBottom">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/item_board_content_padding"
+        
+        >
+        
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/board_image"
+            android:layout_width="@dimen/item_board_image_size"
+            android:layout_height="@dimen/item_board_image_size"
+            android:contentDescription="@string/image_contentDescription"
+            android:src="@drawable/ic_board_place_holder"
+            app:civ_border_color="@color/primary_text_color"
+            app:civ_border_width="@dimen/item_board_image_circular_border_width"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_board_name_layout_marginStart"
+            android:orientation="vertical"
+            >
+            
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primary_text_color"
+                android:textSize="@dimen/item_board_name_text_size"
+                tools:text="Board name"
+                />
+            
+            <TextView
+                android:id="@+id/created_by"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/secondary_text_color"
+                android:textSize="@dimen/item_board_created_by_text_size"
+                tools:text="Created by"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
