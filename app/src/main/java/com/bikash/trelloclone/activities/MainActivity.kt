@@ -5,11 +5,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bikash.trelloclone.R
+import com.bikash.trelloclone.adpters.BoardItemAdapter
 import com.bikash.trelloclone.databinding.ActivityMainBinding
 import com.bikash.trelloclone.firebase.FireStoreClass
+import com.bikash.trelloclone.models.Board
 import com.bikash.trelloclone.models.User
 import com.bikash.trelloclone.utils.Constants
 import com.bumptech.glide.Glide
@@ -50,6 +55,31 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
 
         //showErrorSnackBar("signed in successfully")
+    }
+
+    fun populateBoardsListToUI(boardsList: ArrayList<Board>) {
+
+        hideProgressDialog()
+
+        val rvBoardList = findViewById<RecyclerView>(R.id.rv_boards_list)
+        val tvNoBoardsAvailable = findViewById<TextView>(R.id.tv_no_boards_available)
+
+
+        if (boardsList.size > 0) {
+
+
+            rvBoardList.visibility = View.VISIBLE
+            tvNoBoardsAvailable.visibility = View.GONE
+            rvBoardList.layoutManager = LinearLayoutManager(this@MainActivity)
+            rvBoardList.setHasFixedSize(true)
+
+            // Create an instance of BoardItemsAdapter and pass the boardList to it.
+            val adapter = BoardItemAdapter(this@MainActivity, boardsList)
+            rvBoardList.adapter = adapter // Attach the adapter to the recyclerView.
+        } else {
+            rvBoardList.visibility = View.GONE
+            tvNoBoardsAvailable.visibility = View.VISIBLE
+        }
     }
 
     private fun setupActionBar(){
