@@ -52,6 +52,10 @@ open class BoardItemAdapter(private val context: Context, private var list: Arra
         return list.size
     }
 
+    fun setOnClickListener(onClickListener: OnClickListener){
+        this.onClickListener = onClickListener
+    }
+
      private class MyViewHolder(binding: ItemBoardBinding): RecyclerView.ViewHolder(binding.root){
          val boardImage = binding.boardImage
          val tvName = binding.tvName
