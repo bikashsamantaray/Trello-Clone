@@ -122,6 +122,7 @@ class CreateBoardActivity : BaseActivity() {
 
     fun boardCreatedSuccessFully(){
         hideProgressDialog()
+        setResult(Activity.RESULT_OK)
         finish()
     }
     override fun onRequestPermissionsResult(
