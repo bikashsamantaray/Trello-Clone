@@ -65,7 +65,7 @@ class FireStoreClass {
 
 
 
-    fun loadUserData(activity: Activity){
+    fun loadUserData(activity: Activity,readBoardList: Boolean = false){
 
         mFireStore.collection(Constants.USERS).document(getCurrentUserId()).get().addOnSuccessListener {
             document ->
@@ -76,7 +76,7 @@ class FireStoreClass {
                     activity.signInSuccess(loggedInUser)
                 }
                 is MainActivity -> {
-                    activity.updateNavigationUserDetails(loggedInUser)
+                    activity.updateNavigationUserDetails(loggedInUser,readBoardList)
                 }
 
                 is MyProfileActivity -> {

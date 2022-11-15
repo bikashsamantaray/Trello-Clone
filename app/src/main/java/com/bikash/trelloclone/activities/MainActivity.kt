@@ -41,7 +41,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         binding?.navView?.setNavigationItemSelectedListener(this)
 
-        FireStoreClass().loadUserData(this)
+        FireStoreClass().loadUserData(this, true)
         val fabCreateBoard = findViewById<FloatingActionButton>(R.id.fab_create_board)
 
         fabCreateBoard.setOnClickListener{
@@ -139,7 +139,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         return true
     }
 
-    fun updateNavigationUserDetails(loggedInUser: User?) {
+    fun updateNavigationUserDetails(loggedInUser: User?,readBoardList:Boolean) {
 
         mUserName = loggedInUser?.name.toString()
 
@@ -154,6 +154,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             .into(navUserImage);
 
         tvUserName?.text = loggedInUser?.name
+
+        if (readBoardList){
+            showProgressDialog(resources.getString(R.string.please_wait))
+            FireStoreClass().getBoardsList(this)
+        }
 
 
 
