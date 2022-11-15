@@ -50,11 +50,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             startActivity(intent)
         }
 
-
-
-
-
-        //showErrorSnackBar("signed in successfully")
+        
     }
 
     fun populateBoardsListToUI(boardsList: ArrayList<Board>) {
@@ -73,9 +69,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             rvBoardList.layoutManager = LinearLayoutManager(this@MainActivity)
             rvBoardList.setHasFixedSize(true)
 
-            // Create an instance of BoardItemsAdapter and pass the boardList to it.
+
             val adapter = BoardItemAdapter(this@MainActivity, boardsList)
-            rvBoardList.adapter = adapter // Attach the adapter to the recyclerView.
+            rvBoardList.adapter = adapter
         } else {
             rvBoardList.visibility = View.GONE
             tvNoBoardsAvailable.visibility = View.VISIBLE
