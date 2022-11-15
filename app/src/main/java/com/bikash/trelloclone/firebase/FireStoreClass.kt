@@ -124,4 +124,8 @@ class FireStoreClass {
         }
         return currentUserID
     }
+
+    fun getBoardSDetails(activity: TaskListActivity, documentId: String) {
+
+    }
 }
