@@ -35,6 +35,7 @@ class TaskListActivity : BaseActivity() {
 
         binding?.toolbarTaskListActivity?.setNavigationOnClickListener{
             onBackPressed()
+
         }
 
     }
