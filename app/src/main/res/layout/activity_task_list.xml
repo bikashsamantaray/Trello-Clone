@@ -7,12 +7,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_task_list_activity"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Widget.Material3.PopupMenu.ListPopupWindow"/>
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout android:layout_width="match_parent"

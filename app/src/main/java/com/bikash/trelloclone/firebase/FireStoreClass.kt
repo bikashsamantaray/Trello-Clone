@@ -1,7 +1,6 @@
 package com.bikash.trelloclone.firebase
 
 import android.app.Activity
-import android.os.Build.VERSION_CODES.S
 import android.util.Log
 import android.widget.Toast
 import com.bikash.trelloclone.activities.*
@@ -39,7 +38,6 @@ class FireStoreClass {
 
     fun getBoardsList(activity: MainActivity) {
 
-
         mFireStore.collection(Constants.BOARDS)
             .whereArrayContains(Constants.ASSIGNED_TO, getCurrentUserId())
             .get()
@@ -58,6 +56,7 @@ class FireStoreClass {
                 activity.populateBoardsListToUI(boardsList)
             }
             .addOnFailureListener { e ->
+
                 activity.hideProgressDialog()
                 Log.e(activity.javaClass.simpleName, "Error while creating a board.", e)
             }
@@ -126,6 +125,21 @@ class FireStoreClass {
     }
 
     fun getBoardSDetails(activity: TaskListActivity, documentId: String) {
+
+        mFireStore.collection(Constants.BOARDS)
+            .document()
+            .get()
+            .addOnSuccessListener { document ->
+                Log.e(activity.javaClass.simpleName, document.toString())
+
+                activity.boardDetails(document.toObject(Board::class.java)!!)
+
+            }
+            .addOnFailureListener { e ->
+
+                activity.hideProgressDialog()
+                Log.e(activity.javaClass.simpleName, "Error while creating a board.", e)
+            }
 
     }
 }
