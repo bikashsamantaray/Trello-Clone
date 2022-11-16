@@ -137,6 +137,7 @@ class FireStoreClass {
             }
             .addOnFailureListener { e ->
 
+
                 activity.hideProgressDialog()
                 Log.e(activity.javaClass.simpleName, "Error while creating a board.", e)
             }
