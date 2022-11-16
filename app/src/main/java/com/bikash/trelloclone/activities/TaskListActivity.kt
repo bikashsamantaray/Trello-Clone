@@ -23,7 +23,7 @@ class TaskListActivity : BaseActivity() {
 
         }
         showProgressDialog(resources.getString(R.string.please_wait))
-        FireStoreClass().getBoardSDetails(this, boardDocumentId)
+        FireStoreClass().getBoardSDetails(this@TaskListActivity, boardDocumentId)
 
     }
 

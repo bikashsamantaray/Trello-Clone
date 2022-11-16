@@ -127,7 +127,7 @@ class FireStoreClass {
     fun getBoardSDetails(activity: TaskListActivity, documentId: String) {
 
         mFireStore.collection(Constants.BOARDS)
-            .document()
+            .document(documentId)
             .get()
             .addOnSuccessListener { document ->
                 Log.e(activity.javaClass.simpleName, document.toString())
