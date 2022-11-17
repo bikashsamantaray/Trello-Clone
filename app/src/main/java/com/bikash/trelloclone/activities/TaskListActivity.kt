@@ -2,11 +2,14 @@ package com.bikash.trelloclone.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bikash.trelloclone.R
+import com.bikash.trelloclone.adpters.TaskListItemAdapter
 import com.bikash.trelloclone.databinding.ActivityMyProfileBinding
 import com.bikash.trelloclone.databinding.ActivityTaskListBinding
 import com.bikash.trelloclone.firebase.FireStoreClass
 import com.bikash.trelloclone.models.Board
+import com.bikash.trelloclone.models.Task
 import com.bikash.trelloclone.utils.Constants
 
 class TaskListActivity : BaseActivity() {
@@ -43,6 +46,14 @@ class TaskListActivity : BaseActivity() {
     fun boardDetails(board: Board){
         hideProgressDialog()
         setupActionBar(board.name)
+
+        val addTaskList = Task(resources.getString(R.string.add_list))
+        board.taskList.add(addTaskList)
+        binding?.rvTaskList?.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        binding?.rvTaskList?.setHasFixedSize(true)
+        val adapter = TaskListItemAdapter(this@TaskListActivity,board.taskList)
+        binding?.rvTaskList?.adapter = adapter
+
 
     }
 }
