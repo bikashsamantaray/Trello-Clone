@@ -33,6 +33,18 @@ open class TaskListItemAdapter(private val context: Context, private var list: A
                 holder.llTaskItem.visibility = View.VISIBLE
 
             }
+            holder.tvTaskListTitle.text = model.title
+            holder.tvAddTaskList.setOnClickListener {
+                holder.tvAddTaskList.visibility = View.GONE
+                holder.cvAddTaskListName.visibility = View.VISIBLE
+            }
+            holder.ibCloseListName.setOnClickListener {
+                holder.tvAddTaskList.visibility = View.VISIBLE
+                holder.cvAddTaskListName.visibility = View.GONE
+            }
+            holder.ibDoneListName.setOnClickListener {
+
+            }
         }
     }
 
@@ -48,6 +60,9 @@ open class TaskListItemAdapter(private val context: Context, private var list: A
 
         val tvAddTaskList = binding.tvAddTaskList
         val llTaskItem = binding.llTaskItem
-
+        val tvTaskListTitle = binding.tvTaskListTitle
+        val cvAddTaskListName = binding.cvAddTaskListName
+        val ibCloseListName = binding.ibCloseListName
+        val ibDoneListName = binding.ibDoneListName
     }
 }

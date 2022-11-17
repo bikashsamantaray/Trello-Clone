@@ -14,6 +14,8 @@ import com.bikash.trelloclone.utils.Constants
 
 class TaskListActivity : BaseActivity() {
 
+    private lateinit var mBoardDetails: Board
+
     private var binding: ActivityTaskListBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,10 +32,10 @@ class TaskListActivity : BaseActivity() {
 
     }
 
-    private fun setupActionBar(title: String){
+    private fun setupActionBar(){
         setSupportActionBar(binding?.toolbarTaskListActivity)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_new_24)
-        supportActionBar?.title = title
+        supportActionBar?.title = mBoardDetails.name
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding?.toolbarTaskListActivity?.setNavigationOnClickListener{
@@ -44,8 +46,9 @@ class TaskListActivity : BaseActivity() {
     }
 
     fun boardDetails(board: Board){
+        mBoardDetails = board
         hideProgressDialog()
-        setupActionBar(board.name)
+        setupActionBar()
 
         val addTaskList = Task(resources.getString(R.string.add_list))
         board.taskList.add(addTaskList)
@@ -55,5 +58,10 @@ class TaskListActivity : BaseActivity() {
         binding?.rvTaskList?.adapter = adapter
 
 
+    }
+
+    fun addUpdateTaskListSuccess(){
+
+        FireStoreClass().getBoardSDetails(this,mBoardDetails.documentId)
     }
 }
