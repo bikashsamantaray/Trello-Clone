@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bikash.trelloclone.activities.TaskListActivity
 import com.bikash.trelloclone.databinding.ItemTaskBinding
 import com.bikash.trelloclone.models.Task
 
@@ -43,7 +45,14 @@ open class TaskListItemAdapter(private val context: Context, private var list: A
                 holder.cvAddTaskListName.visibility = View.GONE
             }
             holder.ibDoneListName.setOnClickListener {
-
+                val listName = holder.etTaskListName.text.toString()
+                if (listName.isNotEmpty()){
+                    if (context is TaskListActivity){
+                        context.createTaskList(listName)
+                    }
+                }else{
+                    Toast.makeText(context,"Please Enter Your List Name, It Cant be Empty",Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -64,5 +73,6 @@ open class TaskListItemAdapter(private val context: Context, private var list: A
         val cvAddTaskListName = binding.cvAddTaskListName
         val ibCloseListName = binding.ibCloseListName
         val ibDoneListName = binding.ibDoneListName
+        val etTaskListName = binding.etTaskListName
     }
 }

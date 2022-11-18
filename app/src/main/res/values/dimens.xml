@@ -85,7 +85,7 @@
     <dimen name="task_item_rv_card_list_margin">5dp</dimen>
     <dimen name="task_item_add_card_text_elevation">10dp</dimen>
 
-    <dimen name="ll_item_task_width">300dp</dimen>
+    <dimen name="ll_item_task_width">250dp</dimen>
 
 
 
