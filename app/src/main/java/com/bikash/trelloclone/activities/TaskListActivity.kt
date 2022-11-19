@@ -84,4 +84,10 @@ class TaskListActivity : BaseActivity() {
         FireStoreClass().addUpdateTaskList(this, mBoardDetails)
 
     }
+    fun deleteTaskList(position: Int){
+        mBoardDetails.taskList.removeAt(position)
+        mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size-1)
+        showProgressDialog(resources.getString(R.string.please_wait))
+        FireStoreClass().addUpdateTaskList(this, mBoardDetails)
+    }
 }

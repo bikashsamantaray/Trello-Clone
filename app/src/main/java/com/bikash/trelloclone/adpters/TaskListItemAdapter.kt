@@ -1,5 +1,6 @@
 package com.bikash.trelloclone.adpters
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.res.Resources
 import android.view.LayoutInflater
@@ -77,6 +78,10 @@ open class TaskListItemAdapter(private val context: Context, private var list: A
                 }
 
             }
+
+            holder.ibDeleteList.setOnClickListener {
+                alertDialogForDeleteList(position,model.title)
+            }
         }
     }
 
@@ -84,9 +89,36 @@ open class TaskListItemAdapter(private val context: Context, private var list: A
         return list.size
     }
 
-    private fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()
+    private fun alertDialogForDeleteList(position: Int, title: String) {
+        val builder = AlertDialog.Builder(context)
+        //set title for alert dialog
+        builder.setTitle("Alert")
+        //set message for alert dialog
+        builder.setMessage("Are you sure you want to delete $title.")
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+        //performing positive action
+        builder.setPositiveButton("Yes") { dialogInterface, which ->
+            dialogInterface.dismiss() // Dialog will be dismissed
 
-    private fun Int.toPx(): Int = (this* Resources.getSystem().displayMetrics.density).toInt()
+            if (context is TaskListActivity) {
+                context.deleteTaskList(position)
+            }
+        }
+
+        //performing negative action
+        builder.setNegativeButton("No") { dialogInterface, which ->
+            dialogInterface.dismiss() // Dialog will be dismissed
+        }
+        // Create the AlertDialog
+        val alertDialog: AlertDialog = builder.create()
+        // Set other dialog properties
+        alertDialog.setCancelable(false) // Will not allow user to cancel after clicking on remaining screen area.
+        alertDialog.show()  // show the dialog to UI
+    }
+
+   // private fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()
+
+   // private fun Int.toPx(): Int = (this* Resources.getSystem().displayMetrics.density).toInt()
 
     private class MyViewHolder(binding: ItemTaskBinding): RecyclerView.ViewHolder(binding.root) {
 
@@ -103,5 +135,6 @@ open class TaskListItemAdapter(private val context: Context, private var list: A
         val cvEditTaskListName = binding.cvEditTaskListName
         val ibCloseEditableView = binding.ibCloseEditableView
         val ibDoneEditListName = binding.ibDoneEditListName
+        val ibDeleteList = binding.ibDeleteList
     }
 }
