@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--TODO (Step 1: Design the item view for the task list. Here we will design the complete item view which we will be using it later on.)-->
-<!--START-->
-<!--Here all the constant values are added in their respective files and folders.-->
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -239,6 +236,7 @@
                 android:textSize="@dimen/task_item_add_item_text_size"
                 tools:visibility="visible" />
         </LinearLayout>
+
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>
-    <!--END-->

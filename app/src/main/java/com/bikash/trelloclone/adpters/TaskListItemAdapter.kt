@@ -54,6 +54,29 @@ open class TaskListItemAdapter(private val context: Context, private var list: A
                     Toast.makeText(context,"Please Enter Your List Name, It Cant be Empty",Toast.LENGTH_SHORT).show()
                 }
             }
+            holder.ibEditListName.setOnClickListener {
+                holder.etEditTaskListName.setText(model.title)
+                holder.llTitleView.visibility = View.GONE
+                holder.cvEditTaskListName.visibility = View.VISIBLE
+
+
+            }
+
+            holder.ibCloseEditableView.setOnClickListener {
+                holder.llTitleView.visibility = View.VISIBLE
+                holder.cvEditTaskListName.visibility = View.GONE
+            }
+            holder.ibDoneEditListName.setOnClickListener {
+                val listName = holder.etEditTaskListName.text.toString()
+                if (listName.isNotEmpty()){
+                    if (context is TaskListActivity){
+                        context.updateTaskList(position,listName,model)
+                    }
+                }else{
+                    Toast.makeText(context,"Please Enter A List Name",Toast.LENGTH_SHORT).show()
+                }
+
+            }
         }
     }
 
@@ -74,5 +97,11 @@ open class TaskListItemAdapter(private val context: Context, private var list: A
         val ibCloseListName = binding.ibCloseListName
         val ibDoneListName = binding.ibDoneListName
         val etTaskListName = binding.etTaskListName
+        val ibEditListName = binding.ibEditListName
+        val etEditTaskListName = binding.etEditTaskListName
+        val llTitleView = binding.llTitleView
+        val cvEditTaskListName = binding.cvEditTaskListName
+        val ibCloseEditableView = binding.ibCloseEditableView
+        val ibDoneEditListName = binding.ibDoneEditListName
     }
 }
