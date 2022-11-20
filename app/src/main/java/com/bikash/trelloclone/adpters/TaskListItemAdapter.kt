@@ -82,6 +82,27 @@ open class TaskListItemAdapter(private val context: Context, private var list: A
             holder.ibDeleteList.setOnClickListener {
                 alertDialogForDeleteList(position,model.title)
             }
+            holder.tvAddCard.setOnClickListener {
+                holder.tvAddCard.visibility = View.GONE
+                holder.cvAddCard.visibility = View.VISIBLE
+            }
+
+            holder.ibCloseCardName.setOnClickListener {
+                holder.tvAddCard.visibility = View.VISIBLE
+                holder.cvAddCard.visibility = View.GONE
+            }
+
+            holder.ibDoneCardName.setOnClickListener {
+                val cardName = holder.etCardName.text.toString()
+                if (cardName.isNotEmpty()){
+                    if (context is TaskListActivity){
+                        context.addCardToTaskList(position,cardName)
+                    }
+                }else{
+                    Toast.makeText(context,"Please Enter Your List Name, It Cant be Empty",Toast.LENGTH_SHORT).show()
+                }
+            }
+
         }
     }
 
@@ -105,13 +126,11 @@ open class TaskListItemAdapter(private val context: Context, private var list: A
             }
         }
 
-        //performing negative action
         builder.setNegativeButton("No") { dialogInterface, which ->
-            dialogInterface.dismiss() // Dialog will be dismissed
+            dialogInterface.dismiss()
         }
-        // Create the AlertDialog
         val alertDialog: AlertDialog = builder.create()
-        // Set other dialog properties
+
         alertDialog.setCancelable(false) // Will not allow user to cancel after clicking on remaining screen area.
         alertDialog.show()  // show the dialog to UI
     }
@@ -136,5 +155,10 @@ open class TaskListItemAdapter(private val context: Context, private var list: A
         val ibCloseEditableView = binding.ibCloseEditableView
         val ibDoneEditListName = binding.ibDoneEditListName
         val ibDeleteList = binding.ibDeleteList
+        val tvAddCard = binding.tvAddCard
+        val cvAddCard = binding.cvAddCard
+        val ibCloseCardName = binding.ibCloseCardName
+        val ibDoneCardName = binding.ibDoneCardName
+        val etCardName = binding.etCardName
     }
 }

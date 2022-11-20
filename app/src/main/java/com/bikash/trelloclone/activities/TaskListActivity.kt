@@ -9,6 +9,7 @@ import com.bikash.trelloclone.databinding.ActivityMyProfileBinding
 import com.bikash.trelloclone.databinding.ActivityTaskListBinding
 import com.bikash.trelloclone.firebase.FireStoreClass
 import com.bikash.trelloclone.models.Board
+import com.bikash.trelloclone.models.Card
 import com.bikash.trelloclone.models.Task
 import com.bikash.trelloclone.utils.Constants
 
@@ -89,5 +90,26 @@ class TaskListActivity : BaseActivity() {
         mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size-1)
         showProgressDialog(resources.getString(R.string.please_wait))
         FireStoreClass().addUpdateTaskList(this, mBoardDetails)
+    }
+
+    fun addCardToTaskList(position: Int,cardName: String){
+        mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size-1)
+
+        val cardAssignedUserList: ArrayList<String> = ArrayList()
+        cardAssignedUserList.add(FireStoreClass().getCurrentUserId())
+
+        val card = Card(cardName,FireStoreClass().getCurrentUserId(),cardAssignedUserList)
+
+        val cardsList = mBoardDetails.taskList[position].cards
+        cardsList.add(card)
+
+        val task = Task(mBoardDetails.taskList[position].title,mBoardDetails.taskList[position].createdBy,cardsList)
+
+        mBoardDetails.taskList[position] = task
+
+        showProgressDialog(resources.getString(R.string.please_wait))
+        FireStoreClass().addUpdateTaskList(this, mBoardDetails)
+
+
     }
 }
