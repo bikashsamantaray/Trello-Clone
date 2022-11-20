@@ -1,7 +1,10 @@
 package com.bikash.trelloclone.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bikash.trelloclone.R
 import com.bikash.trelloclone.adpters.TaskListItemAdapter
@@ -31,6 +34,23 @@ class TaskListActivity : BaseActivity() {
         showProgressDialog(resources.getString(R.string.please_wait))
         FireStoreClass().getBoardSDetails(this@TaskListActivity, boardDocumentId)
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_members,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.actions_members ->
+            {
+                val intent = Intent(this, MembersActivity::class.java)
+                intent.putExtra(Constants.BOARD_DETAILS,mBoardDetails)
+                startActivity(intent)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setupActionBar(){

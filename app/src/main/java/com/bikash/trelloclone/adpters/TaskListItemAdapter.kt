@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bikash.trelloclone.activities.TaskListActivity
 import com.bikash.trelloclone.databinding.ItemTaskBinding
+import com.bikash.trelloclone.models.Card
 import com.bikash.trelloclone.models.Task
 
 
@@ -103,6 +105,11 @@ open class TaskListItemAdapter(private val context: Context, private var list: A
                 }
             }
 
+            holder.rvCardList.layoutManager = LinearLayoutManager(context)
+            holder.rvCardList.setHasFixedSize(true)
+            val adapter = CardListItemsAdapter(context,model.cards)
+            holder.rvCardList.adapter = adapter
+
         }
     }
 
@@ -160,5 +167,6 @@ open class TaskListItemAdapter(private val context: Context, private var list: A
         val ibCloseCardName = binding.ibCloseCardName
         val ibDoneCardName = binding.ibDoneCardName
         val etCardName = binding.etCardName
+        val rvCardList = binding.rvCardList
     }
 }

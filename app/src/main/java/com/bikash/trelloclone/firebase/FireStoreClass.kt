@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import com.bikash.trelloclone.activities.*
 import com.bikash.trelloclone.models.Board
+import com.bikash.trelloclone.models.User
 import com.bikash.trelloclone.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -165,4 +166,28 @@ class FireStoreClass {
             }
 
     }
+
+    fun getAssignedMembersListDetails(activity: MembersActivity,assignedTo: ArrayList<String>){
+        mFireStore.collection(Constants.USERS)
+            .whereIn(Constants.ID,assignedTo)
+            .get()
+            .addOnSuccessListener {
+                document ->
+                Log.e(activity.javaClass.simpleName,document.documents.toString())
+                val userList :ArrayList<User> = ArrayList()
+
+                for (i in document.documents){
+                    val user = i.toObject(User::class.java)!!
+                    userList.add(user)
+                }
+
+                activity.setUpMemberList(userList)
+
+            }.addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(activity.javaClass.simpleName,"Error while creating Board",e)
+
+            }
+    }
+
 }
