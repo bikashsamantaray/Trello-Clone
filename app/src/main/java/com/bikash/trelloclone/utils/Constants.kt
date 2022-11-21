@@ -9,6 +9,7 @@ import androidx.core.app.ActivityCompat.startActivityForResult
 import com.bikash.trelloclone.activities.MyProfileActivity
 
 object Constants {
+
     const val USERS: String = "users"
 
     const val BOARDS: String = "boards"
@@ -23,6 +24,7 @@ object Constants {
     const val TASK_LIST: String = "taskList"
     const val BOARD_DETAILS: String = "board_detail"
     const val ID: String = "id"
+    const val EMAIl: String = "mail"
 
 
      fun showImageChooser(activity: Activity){
