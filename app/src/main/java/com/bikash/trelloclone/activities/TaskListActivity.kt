@@ -17,6 +17,7 @@ import com.bikash.trelloclone.models.Board
 import com.bikash.trelloclone.models.Card
 import com.bikash.trelloclone.models.Task
 import com.bikash.trelloclone.utils.Constants
+import java.text.FieldPosition
 
 class TaskListActivity : BaseActivity() {
 
@@ -37,11 +38,6 @@ class TaskListActivity : BaseActivity() {
 
     }
 
-    override fun onResume() {
-        showProgressDialog(resources.getString(R.string.please_wait))
-        FireStoreClass().getBoardSDetails(this@TaskListActivity, mBoardDocumentId)
-        super.onResume()
-    }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -56,6 +52,10 @@ class TaskListActivity : BaseActivity() {
         }else{
             Log.e("Cancelled", "Cancelled")
         }
+    }
+
+    fun cardDetails(taskListPosition : Int, cardPosition: Int){
+        startActivity(Intent(this, CardDetailsActivity::class.java))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
