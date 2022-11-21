@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--TODO (Step 3: Design the CardDetailsActivity as per requirement.)-->
-<!--START-->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -141,4 +140,3 @@
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 </LinearLayout>
-    <!--END-->
