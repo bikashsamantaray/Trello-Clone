@@ -6,8 +6,11 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bikash.trelloclone.R
@@ -19,6 +22,7 @@ import com.bikash.trelloclone.utils.Constants
 import com.bikash.trelloclone.utils.Constants.READ_STORAGE_PERMISSION_CODE
 import com.bikash.trelloclone.utils.Constants.showImageChooser
 import com.bumptech.glide.Glide
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import de.hdodenhof.circleimageview.CircleImageView
@@ -57,7 +61,6 @@ class CreateBoardActivity : BaseActivity() {
             if (mSelectedImageUri != null){
                 uploadBoardImage()
             }else{
-                showProgressDialog(resources.getString(R.string.please_wait))
                 createBoard()
             }
         }
@@ -77,18 +80,24 @@ class CreateBoardActivity : BaseActivity() {
     }
 
     private fun createBoard(){
-        val assignedUserArrayList: ArrayList<String> = ArrayList()
-        assignedUserArrayList.add(getCurrentUserId())
+        val boardName: String = binding?.etBoardName?.text.toString()
+        if (validateCreateBoard(boardName)){
+            showProgressDialog(resources.getString(R.string.please_wait))
+            val assignedUserArrayList: ArrayList<String> = ArrayList()
+            assignedUserArrayList.add(getCurrentUserId())
 
-        val board = Board(
-            binding?.etBoardName?.text.toString(),
-            mBoardImageUrl,
-            mUserName,
-            assignedUserArrayList
+            val board = Board(
+                binding?.etBoardName?.text.toString(),
+                mBoardImageUrl,
+                mUserName,
+                assignedUserArrayList
 
-        )
+            )
 
-        FireStoreClass().createBoard(this,board)
+            FireStoreClass().createBoard(this,board)
+        }
+
+
 
     }
 
@@ -160,6 +169,18 @@ class CreateBoardActivity : BaseActivity() {
                 e.printStackTrace()
             }
 
+        }
+    }
+
+    private fun validateCreateBoard(board: String): Boolean{
+        return when{
+            TextUtils.isEmpty(board) -> {
+                showErrorSnackBar("Please enter board name")
+                false
+            }
+            else -> {
+                true
+            }
         }
     }
 }

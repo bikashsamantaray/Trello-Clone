@@ -23,10 +23,11 @@ open class BaseActivity : AppCompatActivity() {
 
     private var tvProgressText: TextView? = null
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_base)
-        tvProgressText = findViewById(R.id.tv_progress_text)
+        tvProgressText = findViewById<TextView>(R.id.tv_progress_text)
     }
 
     fun showProgressDialog(text: String){
