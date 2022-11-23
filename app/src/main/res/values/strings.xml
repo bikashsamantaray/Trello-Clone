@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Trello Clone</string>
 
     <string name="image_contentDescription">image</string>
@@ -36,7 +36,7 @@
     <string name="members">Members</string>
 
     <string name="add_member">Add Member</string>
-    <string name="cancel">CANCEL</string>
+    <string name="cancel" tools:ignore="ButtonCase">CANCEL</string>
     <string name="add">ADD</string>
     <string name="search_member">Search Member</string>
 
@@ -45,6 +45,12 @@
     <string name="select_members">Select Members</string>
     <string name="due_date">Due Date</string>
     <string name="select_due_date">Select Due Date</string>
+
+    <string name="alert">Alert</string>
+    <string name="confirmation_message_to_delete_card">Are you sure you want to delete card \'%1$s\'?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="delete_card">Delete Card</string>
 
 
 </resources>
