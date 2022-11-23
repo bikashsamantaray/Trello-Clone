@@ -52,5 +52,7 @@
     <string name="no">No</string>
     <string name="delete_card">Delete Card</string>
 
+    <string name="str_select_label_color">Select Label Color</string>
+
 
 </resources>
