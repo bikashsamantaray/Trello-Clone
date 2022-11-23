@@ -102,31 +102,35 @@ class CreateBoardActivity : BaseActivity() {
     }
 
     private fun uploadBoardImage() {
-        showProgressDialog(resources.getString(R.string.please_wait))
-        val sRef: StorageReference = FirebaseStorage.getInstance()
-            .reference.child(
-                "BOARD_IMAGE" + System.currentTimeMillis() + "." + Constants.getFileExtensions(
-                    this,
-                    this.mSelectedImageUri
+        val boardName: String = binding?.etBoardName?.text.toString()
+        if (validateCreateBoard(boardName)){
+            showProgressDialog(resources.getString(R.string.please_wait))
+            val sRef: StorageReference = FirebaseStorage.getInstance()
+                .reference.child(
+                    "BOARD_IMAGE" + System.currentTimeMillis() + "." + Constants.getFileExtensions(
+                        this,
+                        this.mSelectedImageUri
+                    )
                 )
-            )
 
 
-        sRef.putFile(mSelectedImageUri!!).addOnSuccessListener { taskSnapshot ->
-            Log.i("Board Image Url", taskSnapshot.metadata!!.reference!!.downloadUrl.toString())
-            taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener { uri ->
-                Log.i("Downloadable image URL", uri.toString())
-                mBoardImageUrl = uri.toString()
-                createBoard()
+            sRef.putFile(mSelectedImageUri!!).addOnSuccessListener { taskSnapshot ->
+                Log.i("Board Image Url", taskSnapshot.metadata!!.reference!!.downloadUrl.toString())
+                taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener { uri ->
+                    Log.i("Downloadable image URL", uri.toString())
+                    mBoardImageUrl = uri.toString()
+                    createBoard()
 
+                }
+
+
+            }.addOnFailureListener { exception ->
+                Toast.makeText(this, exception.message, Toast.LENGTH_SHORT).show()
+
+                hideProgressDialog()
             }
-
-
-        }.addOnFailureListener { exception ->
-            Toast.makeText(this, exception.message, Toast.LENGTH_SHORT).show()
-
-            hideProgressDialog()
         }
+
     }
 
     fun boardCreatedSuccessFully(){
@@ -175,7 +179,7 @@ class CreateBoardActivity : BaseActivity() {
     private fun validateCreateBoard(board: String): Boolean{
         return when{
             TextUtils.isEmpty(board) -> {
-                showErrorSnackBar("Please enter board name")
+                showErrorSnackBar("Please enter board name to create board")
                 false
             }
             else -> {
