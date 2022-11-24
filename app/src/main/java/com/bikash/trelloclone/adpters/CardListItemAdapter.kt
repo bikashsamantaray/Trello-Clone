@@ -1,6 +1,7 @@
 package com.bikash.trelloclone.adpters
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,18 @@ open class CardListItemsAdapter(
 
         if (holder is MyViewHolder) {
 
+            if (model.labelColor.isNotEmpty()){
+
+                holder.viewLabelColor.visibility = View.VISIBLE
+                holder.viewLabelColor.setBackgroundColor(Color.parseColor(model.labelColor))
+
+            }else{
+
+                holder.viewLabelColor.visibility = View.GONE
+
+
+            }
+
             holder.tvCardName.text = model.name
 
             holder.itemView.setOnClickListener {
@@ -50,6 +63,7 @@ open class CardListItemsAdapter(
 
     private class MyViewHolder(binding: ItemCardBinding) : RecyclerView.ViewHolder(binding.root){
         val tvCardName = binding.tvCardName
+        val viewLabelColor = binding.viewLabelColor
 
     }
 }

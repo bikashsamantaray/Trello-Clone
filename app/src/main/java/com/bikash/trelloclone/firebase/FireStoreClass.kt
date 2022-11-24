@@ -180,7 +180,7 @@ class FireStoreClass {
 
     }
 
-    fun getAssignedMembersListDetails(activity: MembersActivity,assignedTo: ArrayList<String>){
+    fun getAssignedMembersListDetails(activity: Activity,assignedTo: ArrayList<String>){
         mFireStore.collection(Constants.USERS)
             .whereIn(Constants.ID,assignedTo)
             .get()
@@ -194,10 +194,23 @@ class FireStoreClass {
                     userList.add(user)
                 }
 
-                activity.setUpMemberList(userList)
+                if (activity is MembersActivity){
+                    activity.setUpMemberList(userList)
+                }else if (activity is TaskListActivity){
+                    activity.boardMembersList(userList)
+                }
+
+
 
             }.addOnFailureListener { e ->
-                activity.hideProgressDialog()
+
+                if (activity is MembersActivity){
+                    activity.hideProgressDialog()
+                }else if (activity is TaskListActivity){
+                    activity.hideProgressDialog()
+                }
+
+
                 Log.e(activity.javaClass.simpleName,"Error while creating Board",e)
 
             }

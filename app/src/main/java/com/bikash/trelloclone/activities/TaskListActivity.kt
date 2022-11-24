@@ -16,6 +16,7 @@ import com.bikash.trelloclone.firebase.FireStoreClass
 import com.bikash.trelloclone.models.Board
 import com.bikash.trelloclone.models.Card
 import com.bikash.trelloclone.models.Task
+import com.bikash.trelloclone.models.User
 import com.bikash.trelloclone.utils.Constants
 import java.text.FieldPosition
 
@@ -23,6 +24,7 @@ class TaskListActivity : BaseActivity() {
 
     private lateinit var mBoardDetails: Board
     private lateinit var mBoardDocumentId: String
+    private lateinit var mAssignedMembersDetailList: ArrayList<User>
     private var binding: ActivityTaskListBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +61,7 @@ class TaskListActivity : BaseActivity() {
         intent.putExtra(Constants.BOARD_DETAILS,mBoardDetails)
         intent.putExtra(Constants.TASK_LIST_ITEM_POSITION,taskListPosition)
         intent.putExtra(Constants.CARD_LIST_ITEM_POSITION,cardPosition)
+        intent.putExtra(Constants.BOARD_MEMBERS_LIST,mAssignedMembersDetailList)
         startActivityForResult(intent, CARD_DETAILS_REQUEST_CODE)
     }
 
@@ -104,6 +107,10 @@ class TaskListActivity : BaseActivity() {
         binding?.rvTaskList?.setHasFixedSize(true)
         val adapter = TaskListItemAdapter(this@TaskListActivity,board.taskList)
         binding?.rvTaskList?.adapter = adapter
+        showProgressDialog(resources.getString(R.string.please_wait))
+        FireStoreClass().getAssignedMembersListDetails(this,mBoardDetails.assignedTo)
+
+
 
 
     }
@@ -157,6 +164,14 @@ class TaskListActivity : BaseActivity() {
         showProgressDialog(resources.getString(R.string.please_wait))
         FireStoreClass().addUpdateTaskList(this, mBoardDetails)
 
+
+    }
+
+    fun boardMembersList(list: ArrayList<User>){
+
+        mAssignedMembersDetailList = list
+
+        hideProgressDialog()
 
     }
 

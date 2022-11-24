@@ -12,8 +12,6 @@ import com.bikash.trelloclone.databinding.ActivityCardDetailsBinding
 import com.bikash.trelloclone.databinding.DialogListBinding
 
 
-// TODO (Step 5: Create an dialogs package and a class for showing the label color list dialog.)
-// START
 abstract class LabelColorListDialog(
     context: Context,
     private var list: ArrayList<String>,
@@ -51,4 +49,3 @@ abstract class LabelColorListDialog(
 
     protected abstract fun onItemSelected(color: String)
 }
-// END
