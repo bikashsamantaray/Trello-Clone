@@ -28,7 +28,15 @@
             android:padding="@dimen/item_card_name_text_padding"
             android:textSize="@dimen/item_card_name_text_size"
             tools:text="Card Name" />
-
+        
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_card_selected_member_list"
+            android:layout_marginTop="@dimen/card_details_value_marginTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
         <TextView
             android:id="@+id/tv_members_name"
             android:layout_width="wrap_content"

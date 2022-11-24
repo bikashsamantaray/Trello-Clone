@@ -65,6 +65,8 @@ class CardDetailsActivity : BaseActivity() {
         binding?.tvSelectMembers?.setOnClickListener {
             membersListDialog()
         }
+
+        setupSelectedMemberList()
     }
 
     private fun setupActionBar(){
@@ -146,6 +148,9 @@ class CardDetailsActivity : BaseActivity() {
             mBoardDetails.taskList[mTaskListPosition].cards[mCardPosition].assignedTo,
             mSelectedColor
         )
+
+        val taskList: ArrayList<Task> = mBoardDetails.taskList
+        taskList.removeAt(taskList.size-1)
         mBoardDetails.taskList[mTaskListPosition].cards[mCardPosition] = card
         showProgressDialog(resources.getString(R.string.please_wait))
         FireStoreClass().addUpdateTaskList(this@CardDetailsActivity, mBoardDetails)
@@ -232,7 +237,24 @@ class CardDetailsActivity : BaseActivity() {
             resources.getString(R.string.select_members)
         ){
             override fun onItemSelected(user: User, action: String) {
-                TODO("Not yet implemented")
+                if (action == Constants.SELECT){
+                    if (!mBoardDetails.taskList[mTaskListPosition].cards[mCardPosition].assignedTo.contains(user.id)){
+                        mBoardDetails.taskList[mTaskListPosition].cards[mCardPosition].assignedTo.add(user.id)
+                    }
+                }else{
+                    mBoardDetails.taskList[mTaskListPosition].cards[mCardPosition].assignedTo.remove(user.id)
+
+
+                    for (i in mMemberDetailList.indices){
+                        if (mMemberDetailList[i].id == user.id){
+                            mMemberDetailList[i].selected = false
+                        }
+                    }
+                }
+
+                setupSelectedMemberList()
+
+
             }
 
         }
@@ -261,7 +283,7 @@ class CardDetailsActivity : BaseActivity() {
             binding?.rvSelectedMembersList?.layoutManager = GridLayoutManager(
                 this,6
             )
-            val adapter = CardMemberListItemsAdapter(this,selectedMembersList)
+            val adapter = CardMemberListItemsAdapter(this,selectedMembersList,true)
 
             binding?.rvSelectedMembersList?.adapter = adapter
 
