@@ -11,13 +11,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bikash.trelloclone.R
+import com.bikash.trelloclone.adpters.MemberListItemsAdapter
 import com.bikash.trelloclone.databinding.ActivityMembersBinding
 import com.bikash.trelloclone.databinding.ActivityTaskListBinding
 import com.bikash.trelloclone.firebase.FireStoreClass
 import com.bikash.trelloclone.models.Board
 import com.bikash.trelloclone.models.User
 import com.bikash.trelloclone.utils.Constants
-import com.projemanag.adapters.MemberListItemsAdapter
+
 
 class MembersActivity : BaseActivity() {
 
