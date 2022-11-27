@@ -174,7 +174,7 @@ class MyProfileActivity : BaseActivity() {
 
         }
 
-        FireStoreClass().updateUserProfileDataFirestore(this,userHashMap)
+        FireStoreClass().updateUserProfileData(this,userHashMap)
 
 
 

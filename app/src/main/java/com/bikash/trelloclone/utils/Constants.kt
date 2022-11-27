@@ -32,6 +32,9 @@ object Constants {
     const val BOARD_MEMBERS_LIST: String = "board_members_list"
     const val SELECT:String = "Select"
     const val UN_SELECT:String = "UnSelect"
+    const val TRELLOCLONE_PREFERENCES = "Trelloclone_preferences"
+    const val FCM_TOKEN_UPDATED = "fcmTokenUpdated"
+    const val FCM_TOKEN = "fcmToken"
 
 
 
