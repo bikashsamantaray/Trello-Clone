@@ -8,6 +8,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.icu.text.CaseMap.Title
 import android.media.Ringtone
 import android.media.RingtoneManager
 import android.os.Build
@@ -15,6 +16,10 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.bikash.trelloclone.R
 import com.bikash.trelloclone.activities.MainActivity
+import com.bikash.trelloclone.activities.SignInActivity
+import com.bikash.trelloclone.activities.SignUpActivity
+import com.bikash.trelloclone.firebase.FireStoreClass
+import com.bikash.trelloclone.utils.Constants
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
@@ -29,6 +34,10 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
 
         remoteMessage.data.isNotEmpty().let {
             Log.d(TAG,"Message data payload: ${remoteMessage.from} ")
+            val title = remoteMessage.data[Constants.FCM_KEY_TITLE]!!
+            val message = remoteMessage.data[Constants.FCM_KEY_MESSAGE]!!
+
+            sendNotification(title,message)
 
         }
 
@@ -49,17 +58,22 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
     }
 
     @SuppressLint("UnspecifiedImmutableFlag")
-    private fun sendNotification(messageBody:String ){
-        val intent = Intent(this,MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    private fun sendNotification(title: String,message:String ){
+
+        val intent = if (FireStoreClass().getCurrentUserId().isNotEmpty()){
+            Intent(this,MainActivity::class.java)
+        }else{
+            Intent(this,SignInActivity::class.java)
+        }
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT)
         val channelId = this.resources.getString(R.string.default_notification_channel_id)
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationBuilder = NotificationCompat.Builder(
             this, channelId
         ).setSmallIcon(R.drawable.ic_notification)
-            .setContentTitle("title")
-            .setContentText("Message")
+            .setContentTitle(title)
+            .setContentText(message)
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
             .setContentIntent(pendingIntent)
